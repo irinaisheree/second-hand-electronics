@@ -16,7 +16,7 @@ const PORT = 3000
 
 app.use(routes)
 
-mongoose.connect(`mongodb://127.0.0.1:27017/magic-movies`).then(()=>{ console.log(`DB connected`)
+mongoose.connect(`mongodb://127.0.0.1:27017/electronics`).then(()=>{ console.log(`DB connected`)
 
 app.listen(PORT, () => 
     console.log(`Server is listening on port ${PORT}...`))
