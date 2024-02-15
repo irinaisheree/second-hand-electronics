@@ -10,8 +10,8 @@ router.post('/register', async (req, res) => {
     const userData = req.body
     try {
         await userManager.register(userData)
-        await userManager.login(userData)
-        res.redirect("/")
+        // await userManager.login(userData)
+        res.redirect("/auth/login")
     } catch (error) {
         res.render('auth/register', { ...userData, error: getErrorMessage(error)})
     }
@@ -19,6 +19,19 @@ router.post('/register', async (req, res) => {
 
 router.get('/login', (req, res) => {
     res.render('auth/login')
+})
+
+router.post('/login', async(req, res) => {
+    const {email, password} = req.body;
+    try{
+        const token = await userManager.login(email, password);
+        res.cookie('auth', token);
+        res.redirect('/');
+    }catch(error){
+        const message = getErrorMessage(error)
+        res.status(404).render('auth/login', {email, error: message})
+    }
+    
 })
 
 module.exports = router
