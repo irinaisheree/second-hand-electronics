@@ -2,11 +2,13 @@ const router = require('express').Router()
 const {getErrorMessage} = require('../utils/errorUtils')
 const userManager = require('../managers/userManager')
 
-router.get('/register', (req, res) => {
+const{isGuest, isAuth} = require('../middlewares/authMiddleware')
+
+router.get('/register', isGuest, (req, res) => {
     res.render('auth/register')
 })
 
-router.post('/register', async (req, res) => {
+router.post('/register', isGuest, async (req, res) => {
     const userData = req.body
     try {
         await userManager.register(userData)
@@ -17,11 +19,11 @@ router.post('/register', async (req, res) => {
     }
 })
 
-router.get('/login', (req, res) => {
+router.get('/login', isGuest,(req, res) => {
     res.render('auth/login')
 })
 
-router.post('/login', async(req, res) => {
+router.post('/login', isGuest, async(req, res) => {
     const {email, password} = req.body;
     try{
         const token = await userManager.login(email, password);
@@ -32,6 +34,11 @@ router.post('/login', async(req, res) => {
         res.status(404).render('auth/login', {email, error: message})
     }
     
+})
+
+router.get('/logout', isAuth, (req, res) => {
+    res.clearCookie('auth')
+    res.redirect('/')
 })
 
 module.exports = router
