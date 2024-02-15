@@ -1,11 +1,11 @@
 const Electronic = require('../models/Electronic');
 const User = require('../models/User')
 
-// exports.getOne = (courseId) => Course.findById(courseId)
+exports.getOne = (electronicId) => Electronic.findById(electronicId)
 // exports.getThree = () => Course.find().sort({ _id: -1 }).limit(3)
 exports.getAll = () => Electronic.find()
 
-// exports.getOneWithOwner = (courseId) => this.getOne(courseId).populate('owner').populate('signUpList')
+exports.getOneWithOwner = (electronicId) => this.getOne(electronicId).populate('owner')
 
 exports.create =  (userId, electronicData) => {
     const createdElectronic = Electronic.create({
