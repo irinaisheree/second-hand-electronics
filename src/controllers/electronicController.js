@@ -7,4 +7,8 @@ router.get('/search', (req, res) => {
 router.get('/create', (req, res) => {
     res.render('electronic/create')
 })
+
+router.get('/catalog', (req, res) => {
+    res.render('catalog')
+})
 module.exports = router
