@@ -17,6 +17,7 @@ exports.create =  (userId, electronicData) => {
     return createdElectronic
 }
 
+exports.edit = (electronicId, electronicData) => Electronic.findByIdAndUpdate(electronicId, electronicData,{runValidators: true})
 // exports.signUp = async(courseId, userId) => {
 // //    const course = await Course.findById(courseId)
 // //    const user = await User.findById(userId)
